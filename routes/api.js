@@ -9,4 +9,6 @@ router.get('/', function(req, res, next) {
 //Ruta para Crear un nuevo buscador
 router.post('/', SearchManager.create);
 
+router.put('/:id', SearchManager.update);
+
 module.exports = router;
