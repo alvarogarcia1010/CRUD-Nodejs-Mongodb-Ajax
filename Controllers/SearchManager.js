@@ -26,13 +26,22 @@ SearchManager.update = (req, res, next) =>{
         if(buscador){
             return res.status(200).json({status:200, success: true, message:"Buscador actualizado con exito en el sistema", buscador});
         }else{
-            return res.status(404).json({status:404, success: false, message:"Error al actualizar buscador", buscador});
+            return res.status(404).json({status:404, success: false, message:"Error al actualizar buscador"});
         }
     });
 };
 
 SearchManager.delete = (req, res, next) =>{
+    var id = req.params.id;
+    BuscadorWebModel.findByIdAndDelete(id, (error, buscador)=>{
+        if(error) return res.status(500).json({status:500, success: false, message:"Error interno del servidor"});
 
+        if(buscador){
+            return res.status(200).json({status:200, success: true, message:"Buscador eliminado con exito del sistema", buscador});
+        }else{
+            return res.status(404).json({status:404, success: false, message:"Error al eliminar buscador"});
+        }
+    });
 };
 
 SearchManager.getBuscador = (req, res, next) =>{

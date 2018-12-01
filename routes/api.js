@@ -11,4 +11,6 @@ router.post('/', SearchManager.create);
 
 router.put('/:id', SearchManager.update);
 
+router.delete('/:id', SearchManager.delete);
+
 module.exports = router;
