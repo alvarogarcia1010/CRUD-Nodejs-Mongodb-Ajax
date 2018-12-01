@@ -2,11 +2,10 @@ var express = require('express');
 var router = express.Router();
 var SearchManager = require('../Controllers/SearchManager');
 
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+router.get('/', SearchManager.getBuscadores);
 
-//Ruta para Crear un nuevo buscador
+router.get('/:id', SearchManager.getBuscador);
+
 router.post('/', SearchManager.create);
 
 router.put('/:id', SearchManager.update);

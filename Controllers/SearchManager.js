@@ -45,11 +45,27 @@ SearchManager.delete = (req, res, next) =>{
 };
 
 SearchManager.getBuscador = (req, res, next) =>{
+    BuscadorWebModel.findById(req.params.id, (error, buscador)=>{
+        if(error) return res.status(500).json({status:500, success: false, message:"Error interno del servidor"});
 
+        if(buscador){
+            return res.status(200).json({status:200, success: true, message:"Buscador web encontrado", buscador});
+        }else{
+            return res.status(404).json({status:404, success: false, message:"No se encontro buscador"});
+        }
+    });
 };
 
 SearchManager.getBuscadores = (req, res, next) =>{
+    BuscadorWebModel.find({}, (error, buscadores)=>{
+        if(error) return res.status(500).json({status:500, success: false, message:"Error interno del servidor"});
 
+        if(buscadores){
+            return res.status(200).json({status:200, success: true, message:"Peticion de buscadores realizada con exito", buscadores});
+        }else{
+            return res.status(404).json({status:404, success: false, message:"No se encontraron buscadores"});
+        }
+    });
 };
 
 module.exports = SearchManager;
