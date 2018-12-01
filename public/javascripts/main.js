@@ -32,6 +32,10 @@ $(document).ready(function(){
         $(formCompany).removeClass("d-none");
     });
 
+    $("#table-browser").on("click", ".update", function(){
+        ocultarFormularioEditAndSave(this);
+    });
+
     $("#table-browser").on("click", ".cancel", function(){
         ocultarFormularioEdit(this);
     });
@@ -170,4 +174,36 @@ function ocultarFormularioEdit(data){
     $(formNombre).addClass("d-none");
     $(formVersion).addClass("d-none");
     $(formCompany).addClass("d-none");
+};
+
+function ocultarFormularioEditAndSave(data){
+    var row = $(data).closest("tr");
+    var formNombre= row.find(".form-nombre");
+    var formVersion= row.find(".form-version");
+    var formCompany= row.find(".form-company");
+    
+    $.ajax({
+        url: "api/Buscadoresweb/" + $(data).attr("data-id"),
+        type: "PUT",
+        dataType: "json",
+        data: 
+            {
+                nombre: $(formNombre).val(),
+                version: $(formVersion).val(),
+                company: $(formCompany).val()
+            },
+
+        error: function(){
+            console.log("Hubo un error en la peticion")
+        },
+
+        success: function(response){
+            if(response.success){
+                getBuscadores();
+            }else{
+                console.log(response.message);
+            }
+        }
+    });
+
 };
